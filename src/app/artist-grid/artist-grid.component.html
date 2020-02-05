@@ -3,15 +3,16 @@
     <div class="col-lg-3 col-md-6" *ngFor="let artist of artists; let i = index">
       <div class="card">
         <img [src]="artist.images[1].url" class="card-img-top" [alt]="artist.name" *ngIf="artist.images[1]">
-        <div class="card-body">
+        <div class="card-body text-center">
           <h5 class="card-title">{{artist.name}}</h5>
           <p class="card-text">Followers: {{artist.followers}}</p>
           <p class="card-text">
             <span class="badge badge-pill badge-secondary"
             *ngFor="let genre of artist.genres">{{genre}}</span>
+          </p>     
+          <p>     
+            <a class="btn btn-outline-dark" (click)="onAlbumClick(i)">Album</a>
           </p>
-          <!-- <a href="#" class="btn btn-outline-dark" (click)="onAlbumClick(i)">Album</a> -->
-          <a class="btn btn-outline-dark" (click)="onAlbumClick(i)">Album</a>
         </div>
       </div>
     </div>
