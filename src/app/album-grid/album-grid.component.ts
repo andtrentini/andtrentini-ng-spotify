@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { SpotifyService } from '../common/spotify.service';
 import { Album } from '../common/album.model';
@@ -17,7 +17,8 @@ export class AlbumGridComponent implements OnInit {
   albums: Album[];
 
   constructor(private activatedRoute: ActivatedRoute,
-              private spotifyService: SpotifyService) { }
+              private spotifyService: SpotifyService,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -34,10 +35,7 @@ export class AlbumGridComponent implements OnInit {
   }
 
   onBraniClick(albumId: string) {
-    this.spotifyService.getAlbumTracks(albumId).subscribe(tracks => {
-          //this.albums = albums;
-          console.log(tracks);
-        });
+    this.router.navigate(['tracks',albumId]);
   }
 
 }

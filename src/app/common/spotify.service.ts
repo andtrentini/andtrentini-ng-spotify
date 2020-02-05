@@ -76,7 +76,8 @@ export class SpotifyService {
     searchParams = searchParams.append('limit', '50');    
     return this.http.get<any>('https://api.spotify.com/v1/artists/'+ artistId +'/albums', 
               {headers: new HttpHeaders({'Authorization': this.token}), params: searchParams}).pipe(map(
-                responseData => {                  
+                responseData => {    
+                  console.log(responseData)              
                   const albumsFounded: Album[] = [];
                   responseData.items.forEach(album => {                    
                     if (album.available_markets.indexOf("IT") >= 0) {

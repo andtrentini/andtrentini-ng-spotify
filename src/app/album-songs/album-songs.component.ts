@@ -15,6 +15,8 @@ export class AlbumSongsComponent implements OnInit {
   album: Album;
   tracks: Track[];
 
+  test;
+
   constructor(private activatedRoute: ActivatedRoute,
               private spotifyService: SpotifyService) { }
 
@@ -26,6 +28,7 @@ export class AlbumSongsComponent implements OnInit {
         console.log(this.album);               
         this.spotifyService.getAlbumTracks(albumId).subscribe(tracks => {
           this.tracks = tracks;
+          this.test = this.tracks[0].previewUrl;
           console.log(this.tracks);
         })
       });
