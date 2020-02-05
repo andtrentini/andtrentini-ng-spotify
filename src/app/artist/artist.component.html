@@ -1,0 +1,19 @@
+<div class="container">
+
+<div class="row">
+<div class="col-sm-6">
+<h4 class="display-4">
+  {{artist.name}}
+</h4>
+  <p class="lead">
+  Followers: {{artist.followers}}
+</p>
+<p>
+  <span class="badge badge-pill badge-primary" *ngFor="let genre of artist.genres">{{genre}}</span>
+</p>
+</div>
+<div class="col-6">
+  <img [src]="artist.images[0].url" [alt]="artist.name" class="img-thumbnail" [width]="artist.images[0].width">
+</div>
+</div>
+</div>

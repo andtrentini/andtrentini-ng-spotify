@@ -1,0 +1,17 @@
+<div class="container"  *ngIf="spotifyService.token; else noToken">
+  <div class="form-row align-items-center">
+    <div class="col-9">
+      <label class="sr-only" for="inlineFormInput">Artista</label>
+      <input type="text" class="form-control mb-2" id="artistaInput" placeholder="artista" #artistaInput (change)="onArtistaInputChange()">
+    </div>
+      <div class="col-3">
+        <button  class="btn btn-secondary mb-2 btn-block" >Cerca</button>
+      </div>
+  </div>
+  <br>
+  <app-artist-grid [artists]="artists"></app-artist-grid>
+</div>
+
+<ng-template #noToken>
+	Errore durante la connessione a Spotify
+</ng-template>
