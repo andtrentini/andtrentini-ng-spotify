@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SpotifyService } from '../common/spotify.service';
@@ -20,9 +20,8 @@ export class AlbumGridComponent implements OnInit {
               private spotifyService: SpotifyService) { }
 
   ngOnInit() {
-    let artistId = this.activatedRoute.snapshot.params['artistId'];
-    /* this.activatedRoute.params.subscribe(params => {
-      let artistId = params.artistId; */
+    this.activatedRoute.params.subscribe(params => {
+      let artistId = params.artistId;
       this.spotifyService.getArtistById(artistId).subscribe(artist => {
         this.artist = artist;
         console.log(this.artist);
@@ -31,7 +30,7 @@ export class AlbumGridComponent implements OnInit {
           console.log(this.albums);
         })
       });
-    /* }) */    
+    })
   }
 
 }

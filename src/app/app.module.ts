@@ -11,6 +11,7 @@ import { ArtistGridComponent } from './artist-grid/artist-grid.component';
 import { AlbumGridComponent } from './album-grid/album-grid.component';
 
 import { Routes, RouterModule } from '@angular/router';
+import { AlbumSongsComponent } from './album-songs/album-songs.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -19,7 +20,7 @@ const routes: Routes = [
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(routes) ],
-  declarations: [ AppComponent, HomeComponent, ArtistComponent, ArtistGridComponent, AlbumGridComponent ],
+  declarations: [ AppComponent, HomeComponent, ArtistComponent, ArtistGridComponent, AlbumGridComponent, AlbumSongsComponent ],
   bootstrap:    [ AppComponent ],
   providers: [SpotifyService]
 })

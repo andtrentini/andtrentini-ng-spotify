@@ -61,9 +61,11 @@ export class SpotifyService {
               )
   };
 
-  getArtistAlbums(artistId: string) {      
+  getArtistAlbums(artistId: string) {    
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('limit', '50');    
     return this.http.get<any>('https://api.spotify.com/v1/artists/'+ artistId +'/albums', 
-              {headers: new HttpHeaders({'Authorization': this.token})}).pipe(map(
+              {headers: new HttpHeaders({'Authorization': this.token}), params: searchParams}).pipe(map(
                 responseData => {                  
                   const albumsFounded: Album[] = [];
                   responseData.items.forEach(album => {                    
@@ -75,5 +77,21 @@ export class SpotifyService {
                 })
               );
   }    
+
+  getAlbumSongs(albumId: string) {
+
+    return this.http.get<any>('https://api.spotify.com/v1/albums/'+ albumId +'/tracks', 
+              {headers: new HttpHeaders({'Authorization': this.token})}).pipe(map(
+                responseData => {                  
+                  const albumsFounded: Album[] = [];
+                  responseData.items.forEach(album => {                    
+                    if (album.available_markets.indexOf("IT") >= 0) {
+                      albumsFounded.push(new Album(album.id, album.name, album.release_date, album.total_tracks, album.images));
+                    }
+                })
+                return albumsFounded;
+                })
+              );
+  }
 
 }
