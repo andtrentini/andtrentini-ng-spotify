@@ -33,4 +33,11 @@ export class AlbumGridComponent implements OnInit {
     })
   }
 
+  onBraniClick(albumId: string) {
+    this.spotifyService.getAlbumTracks(albumId).subscribe(tracks => {
+          //this.albums = albums;
+          console.log(tracks);
+        });
+  }
+
 }

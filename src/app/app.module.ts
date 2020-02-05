@@ -15,7 +15,8 @@ import { AlbumSongsComponent } from './album-songs/album-songs.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'albums/:artistId', component: AlbumGridComponent}
+  {path: 'albums/:artistId', component: AlbumGridComponent},
+  {path: 'tracks/:albumId', component: AlbumSongsComponent}
 ]
 
 @NgModule({

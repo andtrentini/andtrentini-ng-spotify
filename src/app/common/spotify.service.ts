@@ -4,6 +4,7 @@ import { map, filter } from 'rxjs/operators'
 
 import { Artist } from './artist.model';
 import { Album } from './album.model';
+import { Track } from './track.model';
 
 
 @Injectable()
@@ -37,7 +38,7 @@ export class SpotifyService {
   searchArtist(searchString: string) {
     let searchParams = new HttpParams();
     searchParams = searchParams.append('q', searchString);
-    searchParams = searchParams.append('type', 'artist');
+    searchParams = searchParams.append('type', 'artist');    
     return this.http.get<any>('https://api.spotify.com/v1/search', 
       {headers: new HttpHeaders({'Authorization': this.token}), params: searchParams}).pipe(
         map(responseData => {
@@ -53,10 +54,19 @@ export class SpotifyService {
   getArtistById(artistId: string) {
     return this.http.get<any>('https://api.spotify.com/v1/artists/'+ artistId, 
               {headers: new HttpHeaders({'Authorization': this.token})}).pipe(map(
-                artist => {
-                  console.log(artist);
-                  return new Artist(artist.id, artist.name, artist.genres, artist.followers, artist.images);
-                  return artist;
+                artist => {                  
+                  return new Album(artist.id, artist.name, artist.genres, artist.followers, artist.images);
+                })
+              )
+  };
+
+  getAAlbumById(albumId: string) {
+    console.log(albumId);
+    return this.http.get<any>('https://api.spotify.com/v1/albums/'+ albumId, 
+              {headers: new HttpHeaders({'Authorization': this.token})}).pipe(map(
+                album => {    
+                  console.log('s:', album)                                
+                  return new Album(album.id, album.name, album.releaseDate, album.totalTracks, album.images);                  
                 })
               )
   };
@@ -78,18 +88,20 @@ export class SpotifyService {
               );
   }    
 
-  getAlbumSongs(albumId: string) {
-
+  getAlbumTracks(albumId: string) {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('limit', '50');   
     return this.http.get<any>('https://api.spotify.com/v1/albums/'+ albumId +'/tracks', 
-              {headers: new HttpHeaders({'Authorization': this.token})}).pipe(map(
+              {headers: new HttpHeaders({'Authorization': this.token}), params: searchParams}).pipe(map(
                 responseData => {                  
-                  const albumsFounded: Album[] = [];
-                  responseData.items.forEach(album => {                    
-                    if (album.available_markets.indexOf("IT") >= 0) {
-                      albumsFounded.push(new Album(album.id, album.name, album.release_date, album.total_tracks, album.images));
+                  console.log(responseData)
+                  const tracksFounded: Track[] = [];
+                  responseData.items.forEach(track => {                    
+                    if (track.available_markets.indexOf("IT") >= 0) {
+                      tracksFounded.push(new Track(track.id, track.name, track.duration_ms, track.track_number, track.preview_url));
                     }
-                })
-                return albumsFounded;
+                })                
+                return tracksFounded;
                 })
               );
   }

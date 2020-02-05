@@ -21,7 +21,8 @@
             <img [src]="album.images[1].url" class="card-img-top" [alt]="album.name" *ngIf="album.images[1]">
             <div class="card-body text-center">            
               <h5 class="card-title">{{album.name}}</h5>
-              <p class="card-text">{{album.releaseDate.slice(0,4)}} - {{album.totalTracks}} brani</p>    <a href="#" class="btn btn-outline-dark">Brani</a>
+              <p class="card-text">{{album.releaseDate.slice(0,4)}} - {{album.totalTracks}} brani</p>
+              <a class="btn btn-outline-dark" (click)="onBraniClick(album.id)">Brani</a>
             </div>
           </div>
         </div>   

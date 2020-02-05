@@ -1,4 +1,4 @@
-const artistURL: string = 'https://api.spotify.com/v1/albums/';
+const albumURL: string = 'https://api.spotify.com/v1/albums/';
 
 import { Image } from './image.model';
 
@@ -16,12 +16,14 @@ export class Album {
     this.totalTracks = totalTracks;
     this.images = [];
 
-    images.forEach(image => {
-      this.images.push(new Image(image));
-    });
+    if (images) {
+      images.forEach(image => {
+        this.images.push(new Image(image));
+      });
+    }
   }  
 
   getUrl(): string {
-    return artistURL+this.id;
+    return albumURL+this.id;
   }
 }
