@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent  {
-  name = 'Angular';
+  logo = 'https://github.com/andtrentini/andtrentini-ng-spotify/blob/master/src/app/Logospotify.png?raw=true';
 }
