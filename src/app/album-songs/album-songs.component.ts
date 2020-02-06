@@ -5,6 +5,7 @@ import { SpotifyService } from '../common/spotify.service';
 import { Album } from '../common/album.model';
 import { Track } from '../common/track.model';
 
+
 @Component({
   selector: 'app-album-songs',
   templateUrl: './album-songs.component.html',
@@ -14,8 +15,7 @@ export class AlbumSongsComponent implements OnInit {
 
   album: Album;
   tracks: Track[];
-
-  test;
+  playStatus: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private spotifyService: SpotifyService) { }
@@ -27,19 +27,23 @@ export class AlbumSongsComponent implements OnInit {
         this.album = album; 
         console.log(this.album);               
         this.spotifyService.getAlbumTracks(albumId).subscribe(tracks => {
-          this.tracks = tracks;
-          this.test = this.tracks[0].previewUrl;
+          this.tracks = tracks;          
           console.log(this.tracks);
         })
       });
     })
   }
 
-  play(i: number) {
-    this.tracks.forEach(track => {
-      track.stop();
-    })
-    this.tracks[i].play();
+  playStop(i: number) {
+    if (this.tracks[i].playStatus) {
+      this.tracks[i].stop();     
+    }
+    else {
+      this.tracks.forEach(track => {
+        track.stop();
+      })
+      this.tracks[i].play();     
+    }
   }
 
 }

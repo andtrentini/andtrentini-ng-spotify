@@ -73,16 +73,17 @@ export class SpotifyService {
 
   getArtistAlbums(artistId: string) {    
     let searchParams = new HttpParams();
-    searchParams = searchParams.append('limit', '50');    
+    searchParams = searchParams.append('limit', '50');   
+    searchParams = searchParams.append('market', 'IT');    
     return this.http.get<any>('https://api.spotify.com/v1/artists/'+ artistId +'/albums', 
               {headers: new HttpHeaders({'Authorization': this.token}), params: searchParams}).pipe(map(
                 responseData => {    
                   console.log(responseData)              
                   const albumsFounded: Album[] = [];
                   responseData.items.forEach(album => {                    
-                    if (album.available_markets.indexOf("IT") >= 0) {
+                    //if (album.available_markets.indexOf("US") >= 0) {
                       albumsFounded.push(new Album(album.id, album.name, album.release_date, album.total_tracks, album.images));
-                    }
+                    //}
                 })
                 return albumsFounded;
                 })
@@ -92,15 +93,16 @@ export class SpotifyService {
   getAlbumTracks(albumId: string) {
     let searchParams = new HttpParams();
     searchParams = searchParams.append('limit', '50');   
+    searchParams = searchParams.append('market', 'IT');   
     return this.http.get<any>('https://api.spotify.com/v1/albums/'+ albumId +'/tracks', 
               {headers: new HttpHeaders({'Authorization': this.token}), params: searchParams}).pipe(map(
                 responseData => {                  
-                  console.log(responseData)
+                  console.log('market ok', responseData)
                   const tracksFounded: Track[] = [];
                   responseData.items.forEach(track => {                    
-                    if (track.available_markets.indexOf("IT") >= 0) {
+                    /* if (track.available_markets.indexOf("IT") >= 0) { */
                       tracksFounded.push(new Track(track.id, track.name, track.duration_ms, track.track_number, track.preview_url));
-                    }
+                    /* } */
                 })                
                 return tracksFounded;
                 })

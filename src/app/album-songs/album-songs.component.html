@@ -8,27 +8,26 @@
         <br>
         <br>
         <p class="lead">{{album.releaseDate.slice(0,4)}} - {{album.totalTracks}} brani</p>
-        <p class="img-thumbnail">
-          <iframe [src]="album.getPlayUrl() | urlSanitize" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <p>
+          <iframe [src]="album.getPlayUrl() | urlSanitize" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         </p>
-        <button class="btn" (click)="play(0)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-        <button class="btn btn-primary" (click)="play(1)">play 2</button>
-        <button class="btn btn-primary" (click)="tracks[0].stop()">stop</button>
       </div>
     </div>
-    <!-- <div class="col-lg-7 col-md-7"> 
-      <div class="row">
-        <div class="col-md-12 col-lg-6" *ngFor="let album of albums; let i = index">
-          <div class="card">
-            <img [src]="album.images[1].url" class="card-img-top" [alt]="album.name" *ngIf="album.images[1]">
-            <div class="card-body text-center">            
-              <h5 class="card-title">{{album.name}}</h5>
-              <p class="card-text">{{album.releaseDate.slice(0,4)}} - {{album.totalTracks}} brani</p>
-              <a class="btn btn-outline-dark" (click)="onBraniClick(album.id)">Brani</a>
-            </div>
-          </div>
-        </div>   
-      </div>
-    </div> -->
+    <div class="col-lg-7 col-md-7">     
+      <br>  
+      <table class="table table-sm table-borderless">
+        <tbody>
+          <tr *ngFor="let track of tracks; let i = index">
+            <th scope="row"><small>{{i+1}}</small></th>
+            <td><small>{{track.name}}</small></td>
+            <td><small>{{track.duration}}</small></td>
+            <td>
+              <!-- <button class="btn" (click)="playStop(i)"><fa-icon [icon]="getIcon()"></fa-icon></button> -->
+              <fa-icon [icon]="track.getIcon()" (click)="playStop(i)"></fa-icon>
+              </td>
+          </tr>            
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
