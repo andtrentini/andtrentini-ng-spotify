@@ -1,4 +1,5 @@
 const albumURL: string = 'https://api.spotify.com/v1/albums/';
+const playBaseUrl: string = 'https://open.spotify.com/embed/album/';
 
 import { Image } from './image.model';
 
@@ -25,5 +26,9 @@ export class Album {
 
   getUrl(): string {
     return albumURL+this.id;
+  }
+
+  getPlayUrl(): string {
+    return playBaseUrl+this.id;
   }
 }

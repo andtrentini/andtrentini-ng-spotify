@@ -55,18 +55,18 @@ export class SpotifyService {
     return this.http.get<any>('https://api.spotify.com/v1/artists/'+ artistId, 
               {headers: new HttpHeaders({'Authorization': this.token})}).pipe(map(
                 artist => {                  
-                  return new Album(artist.id, artist.name, artist.genres, artist.followers, artist.images);
+                  return new Artist(artist.id, artist.name, artist.genres, artist.followers, artist.images);
                 })
               )
   };
 
-  getAAlbumById(albumId: string) {
+  getAlbumById(albumId: string) {
     console.log(albumId);
     return this.http.get<any>('https://api.spotify.com/v1/albums/'+ albumId, 
               {headers: new HttpHeaders({'Authorization': this.token})}).pipe(map(
                 album => {    
                   console.log('s:', album)                                
-                  return new Album(album.id, album.name, album.releaseDate, album.totalTracks, album.images);                  
+                  return new Album(album.id, album.name, album.release_date, album.total_tracks, album.images);                  
                 })
               )
   };

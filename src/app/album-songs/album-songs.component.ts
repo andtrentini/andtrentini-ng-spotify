@@ -23,7 +23,7 @@ export class AlbumSongsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       let albumId = params.albumId;
-      this.spotifyService.getAAlbumById(albumId).subscribe(album => {
+      this.spotifyService.getAlbumById(albumId).subscribe(album => {
         this.album = album; 
         console.log(this.album);               
         this.spotifyService.getAlbumTracks(albumId).subscribe(tracks => {
@@ -33,6 +33,13 @@ export class AlbumSongsComponent implements OnInit {
         })
       });
     })
+  }
+
+  play(i: number) {
+    this.tracks.forEach(track => {
+      track.stop();
+    })
+    this.tracks[i].play();
   }
 
 }

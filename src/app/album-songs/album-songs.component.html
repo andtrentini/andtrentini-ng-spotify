@@ -1,3 +1,34 @@
-<iframe src="https://open.spotify.com/embed/album/1YfL4WJGwcSsdEyj407XI1" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-{{tracks[0].previewUrl}}
-<iframe [src]="test | urlSanitize" width="300" height="80" frameborder="50" allowtransparency="false" allow="encrypted-media"></iframe>
+<div class="container" *ngIf="album && tracks">
+  <h4 class="display-4 text-center">{{album.name}}</h4>
+  <div class="row">
+    <div class="col-lg-5 col-md-5">
+      <div class="text-center">
+        <br/>
+        <img [src]="album.images[0].url" class="rounded img-thumbnail img-fluid" [alt]="album.name" *ngIf="album.images[0]">
+        <br>
+        <br>
+        <p class="lead">{{album.releaseDate.slice(0,4)}} - {{album.totalTracks}} brani</p>
+        <p class="img-thumbnail">
+          <iframe [src]="album.getPlayUrl() | urlSanitize" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </p>
+        <button class="btn" (click)="play(0)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        <button class="btn btn-primary" (click)="play(1)">play 2</button>
+        <button class="btn btn-primary" (click)="tracks[0].stop()">stop</button>
+      </div>
+    </div>
+    <!-- <div class="col-lg-7 col-md-7"> 
+      <div class="row">
+        <div class="col-md-12 col-lg-6" *ngFor="let album of albums; let i = index">
+          <div class="card">
+            <img [src]="album.images[1].url" class="card-img-top" [alt]="album.name" *ngIf="album.images[1]">
+            <div class="card-body text-center">            
+              <h5 class="card-title">{{album.name}}</h5>
+              <p class="card-text">{{album.releaseDate.slice(0,4)}} - {{album.totalTracks}} brani</p>
+              <a class="btn btn-outline-dark" (click)="onBraniClick(album.id)">Brani</a>
+            </div>
+          </div>
+        </div>   
+      </div>
+    </div> -->
+  </div>
+</div>
